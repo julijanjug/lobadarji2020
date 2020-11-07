@@ -1,13 +1,14 @@
-import 'leaflet-easybutton';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as L from 'leaflet';
-import FreeDraw, { DELETE, EDIT, NONE } from 'leaflet-freedraw';
+import FreeDraw, { CREATE, DELETE, EDIT, NONE } from 'leaflet-freedraw';
+import 'leaflet-easybutton';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
   private map;
