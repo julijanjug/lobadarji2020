@@ -6,8 +6,6 @@ import  'leaflet-search';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 
-
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -89,8 +87,7 @@ export class MapComponent implements OnInit {
       provider: provider,
     });
 
-    const map = new L.Map('map');
-    map.addControl(searchControl);
+    this.map.addControl(searchControl);
   }
 
   private setLocation(loc){

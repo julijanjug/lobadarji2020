@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MapService } from "../map.service";
 @Component({
-  selector: 'app-map-mb',
-  templateUrl: './map-mb.component.html',
-  styleUrls: ['./map-mb.component.scss']
+selector: 'app-map-mb',
+templateUrl: './map-mb.component.html',
+styleUrls: ['./map-mb.component.scss']
 })
 export class MapMbComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+constructor(private map: MapService) { }
+  ngOnInit() {
+    this.map.buildMap()
   }
-
 }
