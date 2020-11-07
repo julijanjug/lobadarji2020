@@ -12,7 +12,7 @@ import { FloatingButtonComponent } from './floating-button/floating-button.compo
     AppComponent,
     HomeComponent,
     MapComponent,
-    FloatingButtonComponent
+    FloatingButtonComponent,
   ],
   imports: [
     BrowserModule,
