@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
 import { FloatingButtonComponent } from './floating-button/floating-button.component';
+import { MapMbComponent } from './map-mb/map-mb.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FloatingButtonComponent } from './floating-button/floating-button.compo
     HomeComponent,
     MapComponent,
     FloatingButtonComponent,
+    MapMbComponent,
   ],
   imports: [
     BrowserModule,
