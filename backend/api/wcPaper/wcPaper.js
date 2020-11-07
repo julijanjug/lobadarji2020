@@ -1,4 +1,4 @@
-import { setAuthToken, requestAuthToken } from '@sentinel-hub/sentinelhub-js';
+ const { setAuthToken, requestAuthToken } = require('@sentinel-hub/sentinelhub-js');
 
 exports.getArea = async (req, res) => {
     console.log("request recieved")
