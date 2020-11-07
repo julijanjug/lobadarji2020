@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import * as lsa from 'leaflet-selectareafeature';
+import FreeDraw, { CREATE, EDIT, DELETE, NONE } from 'leaflet-freedraw';
 
 @Component({
   selector: 'app-map',
@@ -20,6 +20,7 @@ export class MapComponent implements OnInit {
     this.map = L.map('map', {
       center: [ 39.8282, -98.5795 ],
       zoom: 3,
+      doubleClickZoom: false
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -29,7 +30,19 @@ export class MapComponent implements OnInit {
 
   tiles.addTo(this.map);
 
-  var selectfeature = this.map.selectAreaFeature.enable();
+
+  const freeDraw = new FreeDraw({
+      mode: FreeDraw.ALL,
+      smoothFactor: 0.7,
+      simplifyFactor: 1.5,
+      strokeWidth: 3
+  });
+
+  this.map.addLayer(freeDraw);
+
+  freeDraw.on('markers', event => {
+      console.log(event.latLngs);
+  });
 
   }
 

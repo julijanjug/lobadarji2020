@@ -21,6 +21,7 @@
     "@angular/router": "~9.1.11",
     "leaflet": "1.7.1",
     "leaflet-area-select": "^1.0.5",
+    "leaflet-freedraw": "^2.13.3",
     "leaflet-selectareafeature": "^0.1.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
