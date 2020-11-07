@@ -2,6 +2,7 @@
  var getPixels = require("get-pixels")
  const util = require('util');
  const getPixelsAsync = util.promisify(getPixels);
+ const { getAream2 } = require('./helper');
 
 
   [
@@ -28,60 +29,52 @@ const poly = [
          string1+= `${element.lng} ${element.lat},`
      });
      string1 = string1.substring(0, string1.length - 1);
-     console.log('string', string1)
+     // hardcoded instance id, beacuse im too tired to put it in env, sry whoever is reading this.
      const apiString = `403fc28f-678e-4fd5-b629-640bab5faff7?REQUEST=GetMap&CRS=CRS:84&GEOMETRY=POLYGON ((${string1}))&LAYERS=NDVI&WIDTH=512&HEIGHT=453&FORMAT=image/png`
-     console.log('apiString: ', apiString);
      let iterator = {}
-     let count = 1
      const rgb = []
      const result = await getPixelsAsync(`https://services.sentinel-hub.com/ogc/wms/${apiString}`)
-     console.log('`string ', `https://services.sentinel-hub.com/ogc/wms/${apiString}`);
+     // weird u8array, spent wayy too much time on this that im willing to admin.
      iterator = result.data.values()
+     // create something readable for my fried brains.
      for (i = 0; i < result.data.length; i+=4) {
          const tmp = [iterator.next().value,iterator.next().value, iterator.next().value, iterator.next().value]
          rgb.push(tmp)
        } 
-       console.log('rgb: ');
-     return rgb
-    /* await getPixels(`https://services.sentinel-hub.com/ogc/wms/${apiString}`, function(err, pixels) {
-         if(err) {
-             console.log("Bad image path")
-            }
-            const iterator = pixels.data.values()
-            for (i = 0; i < pixels.data.length; i+=4) {
-                const tmp = [iterator.next().value,iterator.next().value, iterator.next().value, iterator.next().value]
-                rgb.push(tmp)
-              } 
-              console.log('rgb: ');
-            return rgb
-      })*/
-    //const response = await got(apiString, {prefixUrl: 'https://services.sentinel-hub.com/ogc/wms/'});
+     return {rgb, apiString: `https://services.sentinel-hub.com/ogc/wms/${apiString}`}
  }
 
  
 
- const areaCalucation = async (pixels) => {
-     console.log('pixels: ', pixels);
-    
-    let count = 0
+ const areaCalucation = async (pixels, area) => {
+    let forestPixel = 0
+    let all = 0
+    let notPoligon = 0
      pixels.forEach(pixel => {
 
-        if(pixel[0] > 40 && pixel[0] < 60 && pixel[1] > 200 && pixel[2] > 200) count++;
-
+        if(pixel[0] > 40 && pixel[0] < 60 && pixel[1] > 200 && pixel[2] > 200) forestPixel++;
+        if(pixel[0] < 60 && pixel[1] > 85 && pixel[1] < 140 && pixel[2] > 85 && pixel[2] < 140) forestPixel++;
+        all++
+        // find white and black pixels.
+        if((pixel[0] === 255 && pixel[2] === 255 && pixel[1] === 255)
+        || (pixel[2] < 10 && pixel[1] < 10)) {
+            notPoligon++;
+        }
      })
-     console.log('count: ', count);
-     return count
+     const ration = forestPixel/(1-notPoligon)
+     return forestPixel*area
  }
 
 exports.getArea = async (req, res) => {
-    console.log("request recieved")
+   
     try {
-        const response = await requestBuilderWMS(poly)
-        console.log('response: ');
-        const area = await areaCalucation(response)
-        console.log('area: ', area);
 
-        return res.json({'number': area})
+        const {rgb, apiString} = await requestBuilderWMS(poly)
+        const allArea = getAream2(poly)
+
+        const area = await areaCalucation(rgb, allArea)
+        
+        return res.json({'m2': area, 'uri': apiString})
     } catch (error) {
         console.log(error)
         return res.status(404).send('Error occured while .', error)
