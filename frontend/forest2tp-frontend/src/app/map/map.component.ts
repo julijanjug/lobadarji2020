@@ -6,6 +6,8 @@ import  'leaflet-search';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 
+
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -25,15 +27,14 @@ export class MapComponent implements OnInit {
   }
 
   private initMap(): void {
-    const provider = new OpenStreetMapProvider();
-    const searchControl = new GeoSearchControl({
-      provider: provider,
-    });
+    //search box
+    var searchLayer = L.geoJson();
 
     this.map = L.map('map', {
       center: [ 39.8282, -98.5795 ],
       zoom: 3,
       doubleClickZoom: false,
+      searchControl: {layer: searchLayer}
     }).locate({setView: true, maxZoom: 13});
 
     //satelite imagery
@@ -79,13 +80,17 @@ export class MapComponent implements OnInit {
     });
     stateChangingButton.addTo(this.map);
 
-    this.map.addControl(searchControl);
-
   }
 
   async initGoogleSearch() {
-    
+    const provider = new OpenStreetMapProvider();
 
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+    });
+
+    const map = new L.Map('map');
+    map.addControl(searchControl);
   }
 
   private setLocation(loc){
