@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import FreeDraw, { CREATE, EDIT, DELETE, NONE } from 'leaflet-freedraw';
+import { FreeDraw } from 'leaflet-freedraw';
 
 @Component({
   selector: 'app-map',
@@ -9,6 +9,9 @@ import FreeDraw, { CREATE, EDIT, DELETE, NONE } from 'leaflet-freedraw';
 })
 export class MapComponent implements OnInit {
   private map;
+  drawLayer;
+
+  disabledContinueBtn = true;
 
   constructor() { }
 
@@ -30,7 +33,6 @@ export class MapComponent implements OnInit {
 
   tiles.addTo(this.map);
 
-
   const freeDraw = new FreeDraw({
       mode: FreeDraw.ALL,
       smoothFactor: 0.7,
@@ -44,7 +46,6 @@ export class MapComponent implements OnInit {
   freeDraw.on('markers', event => {
       console.log(event.latLngs);
   });
-
   }
 
 }
