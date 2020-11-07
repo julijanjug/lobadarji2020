@@ -1,8 +1,7 @@
-import 'leaflet-easybutton';
-
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import FreeDraw, { DELETE, EDIT, NONE } from 'leaflet-freedraw';
+import FreeDraw, { DELETE, EDIT, NONE, CREATE } from 'leaflet-freedraw';
+import 'leaflet-easybutton';
 
 @Component({
   selector: 'app-map',
@@ -26,7 +25,7 @@ export class MapComponent implements OnInit {
       center: [ 39.8282, -98.5795 ],
       zoom: 3,
       doubleClickZoom: false
-    }).locate({setView: true, maxZoom: 17});;
+    }).locate({setView: true, maxZoom: 13});;
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -52,7 +51,7 @@ export class MapComponent implements OnInit {
     var stateChangingButton = L.easyButton({
         states: [{
                 stateName: 'enable-add-polygon',        // name the state
-                icon:      '<img src="https://img.icons8.com/windows/32/000000/polygon.png"/>',               // and define its properties
+                icon:      '<i class="fas fa-draw-polygon"></i>',               // and define its properties
                 title:     'Define area',      // like its title
                 onClick: function(btn, map) {       // and its callback
                   freeDraw.mode(CREATE | EDIT | DELETE);
@@ -60,15 +59,22 @@ export class MapComponent implements OnInit {
                 }
             }, {
                 stateName: 'disable-add-polygon',
-                icon:      '<img src="https://img.icons8.com/windows/32/000000/polygon.png"/>',
-                title:     'Disable',
+                icon:      '<i class="fas fa-arrows-alt"></i>',
+                title:     'Move',
                 onClick: function(btn, map) {
                     freeDraw.mode(NONE);
                     btn.state('enable-add-polygon');
                 }
         }]
     });
-    
     stateChangingButton.addTo(this.map);
+
+    var mapLink = '<a href="http://www.esri.com/">Esri</a>';
+    var wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+    L.tileLayer(
+    'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '&copy; '+mapLink+', '+wholink,
+    maxZoom: 18,
+    }).addTo(this.map);
   }
 }
