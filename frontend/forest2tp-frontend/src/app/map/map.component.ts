@@ -35,7 +35,8 @@ export class MapComponent implements OnInit {
       mode: FreeDraw.ALL,
       smoothFactor: 0.7,
       simplifyFactor: 1.5,
-      strokeWidth: 3
+      strokeWidth: 3,
+      maximumPolygons: 1
   });
 
   this.map.addLayer(freeDraw);
