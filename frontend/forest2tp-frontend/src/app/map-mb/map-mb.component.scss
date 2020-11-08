@@ -4,13 +4,26 @@
     position: absolute;
 }
 .logo-img {
+    display: inline-block;
+    width: 150px;
+}
+.title {
+    margin: auto;
+    font-size: 45px;
+    color: white;
+    display: inline-table;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 15px;
+    font-family: "OpenSans Bold";
+}
+
+.title-container {
+    width: 100%;
     float : left;
     margin : 20px;
     padding: 0;
     position: absolute;
-    width: 150px;
-}
-.title {
-    font-size: 25px;
-    color: white;
+    display: table-cell;
+    vertical-align: middle;
 }
