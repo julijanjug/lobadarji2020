@@ -1,0 +1,92 @@
+.title-bar {
+  padding-top: 20px;
+  height: 50px;
+  text-align: center;
+
+  .title {
+    font-family: "OpenSans Bold";
+    font-size: 30px;
+    align-self: center;
+  }
+}
+
+.page-container {
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .image-section {
+    background: white;
+    margin-right: 50px;
+    max-width: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+
+    img {
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    span {
+      padding-left: 5px;
+    }
+  }
+
+  .section-container {
+    padding: 20px;
+    width: 450px;
+    background: white;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    font-family: "OpenSans Regular";
+
+    &.shadow {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.section-title {
+  font-family: "OpenSans Bold";
+  font-size: 16px;
+}
+
+.tp-input {
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 14px;
+
+  &.width {
+    width: 150px;
+  }
+
+  &.same-line {
+    display: block;
+  }
+}
+
+mat-select,
+mat-form-field {
+  font-size: 14px !important;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.5em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}

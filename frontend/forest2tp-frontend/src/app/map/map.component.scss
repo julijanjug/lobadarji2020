@@ -16,27 +16,29 @@
   height: 100%;
 }
 
-.leaflet-control-zoom {
-  a {
-    width: 40px !important;
-    height: 40px !important;
-    line-height: 40px !important;
+::ng-deep {
+  .leaflet-control-zoom {
+    a {
+      width: 40px !important;
+      height: 40px !important;
+      line-height: 40px !important;
+    }
   }
-}
 
-.easy-button-container {
-  height: 40px;
-  width: 40px;
-
-  .easy-button-button {
-    width: 40px;
+  .easy-button-container {
     height: 40px;
-    border: 0px;
-    background: white;
+    width: 40px;
 
-    .button-state {
-      img {
-        height: 30px;
+    .easy-button-button {
+      width: 40px;
+      height: 40px;
+      border: 0px;
+      background: white;
+
+      .button-state {
+        img {
+          height: 30px;
+        }
       }
     }
   }

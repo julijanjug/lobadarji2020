@@ -7,8 +7,7 @@ import 'leaflet-easybutton';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
   private map;
