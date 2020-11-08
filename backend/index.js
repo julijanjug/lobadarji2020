@@ -3,7 +3,9 @@ const bodyParser = require('body-parser')
 const app = express();
 const mongoose = require('mongoose')
 const wcPaper = require('./api/wcPaper/');
+const cors = require('cors')
 
+app.use(cors())
 app.use(bodyParser.json({
     extended: true
   }));
