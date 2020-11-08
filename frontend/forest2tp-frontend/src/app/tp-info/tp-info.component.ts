@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { RootStore } from '../../root.store';
+
 @Component({
   selector: 'app-tp-info',
   templateUrl: './tp-info.component.html',
@@ -17,18 +19,25 @@ export class TpInfoComponent implements OnInit {
   stevilo_rolic = 0;
   stevilo_dni = 0;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private rootStore: RootStore) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      forestType: ['', Validators.required],
+      forestType: ['LISTNATI', Validators.required],
       nPly: [2, [Validators.required, Validators.min(1)]],
       shitsPerDay: [1, [Validators.required, Validators.min(1)]],
       sheetsUsed: [1, [Validators.required, Validators.min(1)]],
       bothSideUsed: false
     });
 
-    this.calculateToiletPapers(10);
+    this.rootStore.result$.subscribe(res => {
+      if (res && res.data) {
+        this.povrsina_gozda = Math.round(res.data.m2 * 10) / 10;
+        this.imgSrc = res.data.uri;
+
+        this.calculateToiletPapers(this.povrsina_gozda);
+      }
+    });
   }
 
   calculateToiletPapers(povrsina) {
@@ -55,9 +64,9 @@ export class TpInfoComponent implements OnInit {
     //1400 rolic na 
     const rolic_na_m2 = 1400 / this.form.get('nPly').value;
 
-    this.stevilo_rolic = this.volumen_gozda * rolic_na_m2;
+    this.stevilo_rolic = Math.round(this.volumen_gozda * rolic_na_m2 * 10) / 10;
 
-    this.stevilo_dni = this.stevilo_rolic * 160 / (this.form.get('shitsPerDay').value * this.form.get('sheetsUsed').value);
+    this.stevilo_dni = Math.round(this.stevilo_rolic * 160 / (this.form.get('shitsPerDay').value * this.form.get('sheetsUsed').value) * 10) / 10;
   }
 
 }

@@ -1,9 +1,11 @@
+<div class="image-background">
+</div>
 <div class="page-container">
 
   <div class="image-section">
     <p class="section-title">Forest area</p>
     <img [src]="imgSrc" class="image"/>
-    <span>Covered forest area: {{povrsina_gozda}} m</span><sup>2</sup>
+    <span>🌳🌲🌳🌲: {{povrsina_gozda}} m</span><sup>2</sup>
   </div>
 
   <div class="info-section">
@@ -45,14 +47,18 @@
         <p class="tp-input width">Both side used: </p>
         <mat-checkbox class="example-margin" formControlName="bothSideUsed"></mat-checkbox>
 
-        <app-floating-button></app-floating-button>
+        <div class="button-div">
+          <div class="submit-button">
+            ⏰➡🧻
+          </div>
+        </div>
       </form>
     </div>
 
     <div class="section-container">
       <p class="section-title">Toilet paper details</p>
-      <p class="tp-input same-line">No. of rolls produced: {{stevilo_rolic | number:'1.0-0'}}</p>
-      <p class="tp-input same-line">Estimated toilet paper days: {{stevilo_dni | number:'1.0-0'}}</p>
+      <p class="tp-input same-line">No. of rolls produced: {{stevilo_rolic | number:'1.0-1'}} 🧻</p>
+      <p class="tp-input same-line">Estimated toilet paper days: {{stevilo_dni | number:'1.0-1'}} 💩</p>
     </div>
   </div>
 </div>
