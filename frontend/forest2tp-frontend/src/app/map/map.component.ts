@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import FreeDraw, { DELETE, EDIT, NONE, CREATE } from 'leaflet-freedraw';
-import 'leaflet-easybutton';
-import  'leaflet-search';
+// import 'leaflet-easybutton';
+// import  'leaflet-search';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 
