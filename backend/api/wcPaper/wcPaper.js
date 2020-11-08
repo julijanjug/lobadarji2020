@@ -6,7 +6,7 @@
 
 
 
-const poly = [
+let poly = [
     [46.539263, 15.284724],
      [46.496974, 15.351313],
     [46.532178, 15.378086],
@@ -18,7 +18,7 @@ const poly = [
  const requestBuilderWMS = async (polygon) => {
      let string1 = ''
      polygon.forEach(element => {
-         string1+= `${element[1]} ${element[0]},`
+         string1+= `${element[0]} ${element[1]},`
      });
      string1 = string1.substring(0, string1.length - 1);
      // hardcoded instance id, beacuse im too tired to put it in env, sry whoever is reading this.
@@ -63,7 +63,7 @@ const poly = [
 exports.getArea = async (req, res) => {
    
     try {
-
+        poly = req.body.polygons
         const {rgb, apiString} = await requestBuilderWMS(poly)
         const allArea = getAream2(poly)
 

@@ -5,7 +5,7 @@ const {
 
 const router = Router();
 
-router.get('/', getArea);
+router.post('/', getArea);
 
 
 

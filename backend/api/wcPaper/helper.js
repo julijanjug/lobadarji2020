@@ -5,7 +5,7 @@ exports.getAream2 = (polygon) => {
     polygon.forEach(element => {
         console.log('element: ', element);
         // mogoče bo treba zamenjat, pri julianu
-        newPolygon.push({lat: element[0], lng: element[1]});
+        newPolygon.push({lat: element[1], lng: element[0]});
     });
     
     return geoArea(newPolygon)
