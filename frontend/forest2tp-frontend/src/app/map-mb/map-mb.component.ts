@@ -24,7 +24,9 @@ constructor(
   async callPost(){
     var response = await this.map.postArea();
     console.log("2", response);
-    await this.router.navigate(['tp-info']);
     this.rootStore.setResult(response);
+    await this.router.navigate(['tp-info']);
+    var r = this.rootStore.result
+    console.log(r);
   }
 }
