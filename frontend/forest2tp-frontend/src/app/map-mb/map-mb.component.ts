@@ -1,6 +1,7 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RootStore } from 'src/root.store';
 import { MapService } from "../map.service";
 
 @Component({
@@ -12,7 +13,8 @@ export class MapMbComponent implements OnInit {
   disabledContinueBtn = true;
 constructor(
   private map: MapService,
-  private router: Router
+  private router: Router,
+  private rootStore: RootStore
   ) { }
   ngOnInit() {
     this.map.buildMap();
@@ -23,5 +25,6 @@ constructor(
     var response = await this.map.postArea();
     console.log("2", response);
     await this.router.navigate(['tp-info']);
+    this.rootStore.setResult(response);
   }
 }
