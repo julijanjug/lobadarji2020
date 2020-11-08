@@ -62,17 +62,19 @@ export class MapService {
     }
   } 
   
-  postArea() {
-      var data = this.draw.getAll();
+  async postArea() {
+      var data = await this.draw.getAll();
+      console.log("0", data)
       if (data.features.length > 0) {
         let locArray = data.features[0].geometry.coordinates[0];
-        axios({
+        let res = await axios({
           method: 'post',
           url: 'http://localhost:8000/api/sinergise',
           data: {
             polygons: locArray
           }
         });
+        return res;
       }
   }
 }
