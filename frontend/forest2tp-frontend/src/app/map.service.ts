@@ -12,10 +12,10 @@ import { BehaviorSubject } from 'rxjs';
 export class MapService {
   map: mapboxgl.Map;
   draw: MapboxDraw;
-  style = 'mapbox://styles/mapbox/satellite-v9';
+  style = 'mapbox://styles/julijanjug/ckh8f97ya1ilb19osx2q301yv'; //'mapbox://styles/mapbox/satellite-v9';
   lat = 46.0569;
   lng = 14.5058;
-  zoom = 11.5;
+  zoom = 8.5;
   btnEnabled = new BehaviorSubject(false);
 
   constructor() {
