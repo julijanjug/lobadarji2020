@@ -54,29 +54,33 @@ exports.getArea = async (req, res) => {
 
 exports.getTpQuantity = (req, res) => {
     //input
-    var povrsina = req.params['povrsina'];
-    var tip_gozda = req.params['tip_gozda'];
+    const povrsina = req.params['povrsina'];
+    const tip_gozda = req.params['tip_gozda'];
 
-    var avg_r_smkreka = 0.4;
-    var avg_r_bukev = 0.35;
-    var avg_h_smreka = 30;
-    var avg_h_bukev = 25;
+    const avg_r_smkreka = 0.4;
+    const avg_r_bukev = 0.35;
+    const avg_h_smreka = 30;
+    const avg_h_bukev = 25;
 
     //volumen smreke 
-    var avg_V_smreka = 3.14 * avg_r_smkreka * avg_r_smkreka * avg_h_smreka;
-    var avg_V_bukev = 3.14 * avg_r_bukev * avg_r_bukev * avg_h_bukev;
+    const avg_V_smreka = 3.14 * avg_r_smkreka * avg_r_smkreka * avg_h_smreka;
+    const avg_V_bukev = 3.14 * avg_r_bukev * avg_r_bukev * avg_h_bukev;
 
     //eno drevo na približno 6m2
-    var dreves_na_m2 = 1/6;
-    var st_dreves = povrsina * dreves_na_m2;
+    const dreves_na_m2 = 1/6;
+    const st_dreves = povrsina * dreves_na_m2;
 
     //volumen gozda glede na tip
-    var volumen_gozda = 0;
+    const volumen_gozda = 0;
     if(tip_gozda == tip.bukev) {volumen_gozda = st_dreves * avg_V_bukev;}
     else if (tip_gozda == tip.smreka) {volumen_gozda = st_dreves * avg_V_smreka;}
     else {volumen_gozda = st_dreves * (avg_V_smreka + avg_V_bukev) / 2;}
 
     //1400 rolic na 
-    var rolic_na_m2 = 1400;
+    const rolic_na_m2 = 1400 / req.number_of_ply;
+    
+    //
+
+    //
     return volumen_gozda * rolic_na_m2;
 }
