@@ -34,13 +34,12 @@ export class TpInfoComponent implements OnInit {
       if (res && res.data) {
         this.povrsina_gozda = Math.round(res.data.m2 * 10) / 10;
         this.imgSrc = res.data.uri;
-
-        this.calculateToiletPapers(this.povrsina_gozda);
       }
     });
   }
 
-  calculateToiletPapers(povrsina) {
+  calculateToiletPapers() {
+    console.log("kdlosekdlok")
     const tip_gozda = this.form.get('forestType').value;
 
     const avg_r_smreka = 0.4;
@@ -54,17 +53,22 @@ export class TpInfoComponent implements OnInit {
 
     //eno drevo na približno 6m2
     const dreves_na_m2 = 1/6;
-    const st_dreves = povrsina * dreves_na_m2;
+    const st_dreves = this.povrsina_gozda * dreves_na_m2;
+    console.log(st_dreves, dreves_na_m2, this.povrsina_gozda);
 
     //volumen gozda glede na tip
     if(tip_gozda == 'LISTNATI') {this.volumen_gozda = st_dreves * avg_V_bukev;}
     else if (tip_gozda == 'IGLASTI') {this.volumen_gozda = st_dreves * avg_V_smreka;}
     else {this.volumen_gozda = st_dreves * (avg_V_smreka + avg_V_bukev) / 2;}
 
+    console.log(tip_gozda);
+
     //1400 rolic na 
     const rolic_na_m2 = 1400 / this.form.get('nPly').value;
+    console.log(rolic_na_m2);
 
     this.stevilo_rolic = Math.round(this.volumen_gozda * rolic_na_m2 * 10) / 10;
+    console.log(this.stevilo_rolic);
 
     this.stevilo_dni = Math.round(this.stevilo_rolic * 160 / (this.form.get('shitsPerDay').value * this.form.get('sheetsUsed').value) * 10) / 10;
   }
