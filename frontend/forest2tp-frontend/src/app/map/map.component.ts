@@ -1,3 +1,5 @@
+import 'leaflet-easybutton';
+
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import FreeDraw, { DELETE, EDIT, NONE, CREATE } from 'leaflet-freedraw';
