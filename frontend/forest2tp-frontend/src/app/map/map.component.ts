@@ -1,8 +1,10 @@
-import 'leaflet-easybutton';
-
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import FreeDraw, { DELETE, EDIT, NONE } from 'leaflet-freedraw';
+import FreeDraw, { DELETE, EDIT, NONE, CREATE } from 'leaflet-freedraw';
+// import 'leaflet-easybutton';
+// import  'leaflet-search';
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+
 
 @Component({
   selector: 'app-map',
@@ -19,26 +21,32 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMap();
+    this.initGoogleSearch();
   }
 
   private initMap(): void {
+    //search box
+    var searchLayer = L.geoJson();
+
     this.map = L.map('map', {
       center: [ 39.8282, -98.5795 ],
       zoom: 3,
-      doubleClickZoom: false
-    }).locate({setView: true, maxZoom: 17});;
+      doubleClickZoom: false,
+      searchControl: {layer: searchLayer}
+    }).locate({setView: true, maxZoom: 13});
 
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
-    tiles.addTo(this.map);
+    //satelite imagery
+    var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+    }).addTo(this.map);
+    
 
     //add drawing functionality
     const freeDraw = new FreeDraw({
         mode: FreeDraw.ALL,
         smoothFactor: 0.7,
-        simplifyFactor: 1.5,
+        simplifyFactor: 1.4,
         strokeWidth: 3,
         maximumPolygons: 1
     });
@@ -49,26 +57,40 @@ export class MapComponent implements OnInit {
     });
 
     //Toolbar for draw control
-    var stateChangingButton = L.easyButton({
-        states: [{
-                stateName: 'enable-add-polygon',        // name the state
-                icon:      '<img src="https://img.icons8.com/windows/32/000000/polygon.png"/>',               // and define its properties
-                title:     'Define area',      // like its title
-                onClick: function(btn, map) {       // and its callback
-                  freeDraw.mode(CREATE | EDIT | DELETE);
-                    btn.state('disable-add-polygon');    // change state on click!
-                }
-            }, {
-                stateName: 'disable-add-polygon',
-                icon:      '<img src="https://img.icons8.com/windows/32/000000/polygon.png"/>',
-                title:     'Disable',
-                onClick: function(btn, map) {
-                    freeDraw.mode(NONE);
-                    btn.state('enable-add-polygon');
-                }
-        }]
+    var stateChangingButton = L.easyButton({ 
+      states: [{
+              stateName: 'enable-add-polygon',        // name the state
+              icon:      '<i class="fas fa-draw-polygon"></i>',               // and define its properties
+              title:     'Define area',      // like its title
+              onClick: function(btn, map) {       // and its callback
+                freeDraw.mode(CREATE | EDIT | DELETE);
+                  btn.state('disable-add-polygon');    // change state on click!
+              }
+          }, {
+              stateName: 'disable-add-polygon',
+              icon:      '<i class="fas fa-arrows-alt"></i>',
+              title:     'Move',
+              onClick: function(btn, map) {
+                  freeDraw.mode(NONE);
+                  btn.state('enable-add-polygon');
+              }
+      }]
     });
-    
     stateChangingButton.addTo(this.map);
+
+  }
+
+  async initGoogleSearch() {
+    const provider = new OpenStreetMapProvider();
+
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+    });
+
+    this.map.addControl(searchControl);
+  }
+
+  private setLocation(loc){
+    this.map.panTo(new L.LatLng(loc.location.x, loc.location.y));
   }
 }
