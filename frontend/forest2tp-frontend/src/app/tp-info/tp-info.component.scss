@@ -1,0 +1,131 @@
+.title-bar {
+  padding-top: 20px;
+  height: 50px;
+  text-align: center;
+
+  .title {
+    font-family: "OpenSans Bold";
+    font-size: 30px;
+    align-self: center;
+  }
+}
+
+.image-background {
+  background-image: url("/assets/images/toilet_paper.png");
+  opacity: 0.3;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -1;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .image-section {
+    background: white;
+    margin-right: 50px;
+    max-width: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+
+    img {
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    span {
+      padding-left: 5px;
+    }
+  }
+
+  .section-container {
+    padding: 20px;
+    width: 450px;
+    background: white;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.1);
+    font-family: "OpenSans Regular";
+
+    &.shadow {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.section-title {
+  font-family: "OpenSans Bold";
+  font-size: 16px;
+}
+
+.button-div {
+  text-align: right;
+}
+
+.submit-button {
+  display: inline-block;
+  border-radius: 20px;
+  font-size: 18px;
+  padding: 10px 30px;
+  background: rgb(248, 87, 166);
+  background: linear-gradient(
+    90deg,
+    rgba(248, 87, 166, 1) 0%,
+    rgba(247, 144, 144, 1) 100%
+  );
+  color: white;
+  font-family: "OpenSans Bold";
+
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
+
+  &.disabled-button {
+    cursor: default;
+    background: #a7a5a6;
+    background: linear-gradient(90deg, #a7a5a6, #c4c4c4);
+  }
+}
+
+.tp-input {
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 14px;
+
+  &.width {
+    width: 150px;
+  }
+
+  &.same-line {
+    display: block;
+  }
+}
+
+mat-select,
+mat-form-field {
+  font-size: 14px !important;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.5em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}

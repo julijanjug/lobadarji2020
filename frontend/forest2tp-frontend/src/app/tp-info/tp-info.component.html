@@ -1,0 +1,64 @@
+<div class="image-background">
+</div>
+<div class="page-container">
+
+  <div class="image-section">
+    <p class="section-title">Forest area</p>
+    <img [src]="imgSrc" class="image"/>
+    <span>🌳🌲🌳🌲: {{povrsina_gozda}} m</span><sup>2</sup>
+  </div>
+
+  <div class="info-section">
+    <div class="section-container shadow">
+      <form [formGroup]="form">
+        <div>
+          <p class="section-title">Production details</p>
+          <p class="tp-input width">Forest type: </p>
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="forestType">
+              <mat-option [value]="'LISTNATI'">
+                Deciduous
+              </mat-option>
+              <mat-option [value]="'IGLASTI'">
+                Coniferous
+              </mat-option>
+              <mat-option [value]="'MIXED'">
+                Mixed
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <p class="tp-input width">n-ply toiler paper: </p>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput min="1" type="number" formControlName="nPly">
+        </mat-form-field>
+
+        <p class="tp-input width">Shits per day: </p>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput min="1" type="number" formControlName="shitsPerDay">
+        </mat-form-field>
+
+        <p class="tp-input width">Sheets used per shit: </p>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput min="1" type="number" formControlName="sheetsUsed">
+        </mat-form-field>
+
+        <p class="tp-input width">Both side used: </p>
+        <mat-checkbox class="example-margin" formControlName="bothSideUsed"></mat-checkbox>
+
+        <div class="button-div" (click)="calculateToiletPapers()">
+          <div class="submit-button">
+            ⏰➡🧻
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="section-container">
+      <p class="section-title">Toilet paper details</p>
+      <p class="tp-input same-line">No. of rolls produced: {{stevilo_rolic | number:'1.0-1'}} 🧻</p>
+      <p class="tp-input same-line">Estimated toilet paper days: {{stevilo_dni | number:'1.0-1'}} 💩</p>
+    </div>
+  </div>
+</div>
